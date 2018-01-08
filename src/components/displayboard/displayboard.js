@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import ICONS from '../icon/icons.constants';
+import {
+  padTime
+} from '../../game.utils';
 
 class DisplayBoard extends Component {
 
@@ -9,7 +12,7 @@ class DisplayBoard extends Component {
     starRating: PropTypes.number.isRequired,
     totalStars: PropTypes.number.isRequired,
     moves: PropTypes.number.isRequired,
-    time: PropTypes.object.isRequired,
+    time: PropTypes.number.isRequired,
     restart: PropTypes.func
   };
 
@@ -46,11 +49,11 @@ class DisplayBoard extends Component {
         </div>
         <div className="displayboard__section">
           <p className="displayboard__time">
-            13:22
+            {`${padTime(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)))} : ${padTime(Math.floor((time % (1000 * 60)) / 1000))}`}
           </p>
         </div>
         <div className="displayboard__section">
-          <Icon icon={ICONS.LOOP} className="displayboard__restart"/>
+          <Icon icon={ICONS.LOOP} className="displayboard__restart" onClick={restart}/>
         </div>
       </div>
     );

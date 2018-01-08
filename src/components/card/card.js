@@ -6,22 +6,18 @@ export default class Card extends Component {
 
   static propTypes = {
     icon: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  };
-
-  state = {
-    isFlipped: false
+    isFlipped: PropTypes.bool.isRequired,
+    onCardSelected: PropTypes.func.isRequired
   };
 
   cardSelected = ()=>{
-    this.setState({
-      isFlipped: !this.state.isFlipped
-    });
+    if(!this.props.isFlipped){
+      this.props.onCardSelected();
+    }
   };
 
   render(){
-    const {icon} = this.props;
-    const {isFlipped} = this.state;
+    const {icon, isFlipped} = this.props;
 
     const cardClass = isFlipped ? 'card card--active': 'card';
 

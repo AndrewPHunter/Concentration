@@ -16,15 +16,19 @@ const shuffleDeck = (deck)=>{
 
 export const generateDeck = ()=>{
 
-  const cards = Object.keys(CARD_ICONS).map(key=>({
+  const makeCards = ()=>(Object.keys(CARD_ICONS).map(key=>({
     icon: CARD_ICONS[key],
     name: key,
     isFlipped: false
-  }));
+  })));
 
   return shuffleDeck([
-    ...cards,
-    ...cards
+    ...makeCards(),
+    ...makeCards()
   ]);
 };
+
+export const padTime = (number)=>(
+  ("0" + number).slice(-2)
+);
 
