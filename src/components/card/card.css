@@ -1,0 +1,54 @@
+:root{
+  --card-perspective: 150rem;
+  --card-height: 100%;
+  --card-width: 100%;
+  --color-black-shadow: rgba(0, 0, 0, 0.45);
+  --card-shadow: 0 1.5rem 4rem var(--color-black-shadow)
+}
+
+.card {
+  perspective: var(--card-perspective);
+  height: var(--card-height);
+  display: flex;
+  position: relative;
+}
+
+.card--active .card__side--front {
+  transform: rotateY(-180deg);
+}
+
+.card--active .card__side--back {
+  transform: rotateY(0deg);
+}
+
+.card__side {
+  height: var(--card-height);
+  transition: all .8s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--card-width);
+  backface-visibility: hidden;
+  box-shadow: var(--card-shadow);
+  border-radius: .3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__side--front {
+  background-color: var(--color-primary);
+  background-image: linear-gradient(to right bottom, var(--color-primary), var(--color-primary-dark));
+}
+
+.card__side--back {
+  transform: rotateY(180deg);
+  background-color: var(--color-white);
+}
+
+.card__side--back-icon {
+  display: block;
+  width: 40%;
+  height: 40%;
+  fill: var(--color-accent);
+}

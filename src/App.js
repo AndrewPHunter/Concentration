@@ -1,12 +1,33 @@
 import React, { Component } from 'react';
-import ICONS from './components/icon/icons.constants';
-import Icon from './components/icon/icon';
+import GameBoard from './components/gameboard';
+import DisplayBoard from './components/displayboard'
+import {
+  generateDeck
+} from './game.utils';
+
+import './App.css';
+
 
 class App extends Component {
 
+  state = {
+    cards: generateDeck()
+  };
+
   render(){
+
+    const {cards} = this.state;
+
     return(
-      <Icon icon={ICONS.ANDROID} width={100} height={100}/>
+      <div className="game">
+        <div className="game__gameboard">
+          <GameBoard cards={cards}/>
+        </div>
+        <div className="game__displayboard">
+          <DisplayBoard starRating={3} totalStars={3} moves={2} time='12:22'/>
+        </div>
+      </div>
+
     );
   }
 }

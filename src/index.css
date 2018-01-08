@@ -1,14 +1,16 @@
 :root {
-  --color-dark-primary: #0288D1;
-  --color-light-primary: #B3E5FC;
+  --color-primary-dark: #0288D1;
+  --color-primary-light: #B3E5FC;
   --color-primary: #03A9F4;
   --color-accent: #7C4DFF;
+  --color-accent-dark: #6141c1;
 
   --color-primary-text: #212121;
   --color-secondary-text: #757575;
   --color-divider: #BDBDBD;
 
   --color-white: #fff;
+  --color-black: #000;
 }
 
 *,
@@ -21,6 +23,7 @@
 
 html {
   font-size: 62.5%;
+  font-family: sans-serif;
 }
 
 body {
