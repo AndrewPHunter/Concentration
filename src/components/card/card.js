@@ -7,7 +7,8 @@ export default class Card extends Component {
   static propTypes = {
     icon: PropTypes.string.isRequired,
     isFlipped: PropTypes.bool.isRequired,
-    onCardSelected: PropTypes.func.isRequired
+    onCardSelected: PropTypes.func.isRequired,
+    matched: PropTypes.bool.isRequired
   };
 
   cardSelected = ()=>{

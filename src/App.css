@@ -2,15 +2,3 @@
 
 }
 
-.game{
-  display: flex;
-  flex-direction: column;
-}
-
-.game__gameboard {
-  height: 85vh;
-}
-
-.game__displayboard {
-  height: 10vh;
-}

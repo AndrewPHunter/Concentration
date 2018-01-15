@@ -8,6 +8,7 @@ const renderCards = (cards, onCardSelected) =>(
       <Card icon={card.icon}
             name={card.name}
             isFlipped={card.isFlipped}
+            matched={card.matched}
             onCardSelected={onCardSelected.bind(null,index)}
       />
     </div>

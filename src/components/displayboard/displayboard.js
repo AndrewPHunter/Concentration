@@ -4,7 +4,7 @@ import Icon from '../icon/icon';
 import ICONS from '../icon/icons.constants';
 import {
   padTime
-} from '../../game.utils';
+} from '../game/game.utils';
 
 class DisplayBoard extends Component {
 
