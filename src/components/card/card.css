@@ -1,16 +1,28 @@
 :root{
   --card-perspective: 150rem;
   --card-height: 100%;
-  --card-width: 100%;
+  --card-width-small: 85%;
+  --card-width-medium: 75%;
+  --card-width-large: 55%;
   --color-black-shadow: rgba(0, 0, 0, 0.45);
-  --card-shadow: 0 1.5rem 4rem var(--color-black-shadow)
+  --card-shadow: 0 1.5rem 4rem var(--color-black-shadow);
+  --color-matched: #00C853;
 }
 
 .card {
   perspective: var(--card-perspective);
   height: var(--card-height);
-  display: flex;
   position: relative;
+  display: block;
+  width: var(--card-width-small);
+}
+
+.card--matched {
+  animation: pulse .5s ease-in-out;
+}
+
+.card--matched  .card__side-icon--back{
+  fill: var(--color-matched);
 }
 
 .card--active .card__side--front {
@@ -27,7 +39,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: var(--card-width);
+  width: 100%;
   backface-visibility: hidden;
   box-shadow: var(--card-shadow);
   border-radius: .3rem;
@@ -46,9 +58,43 @@
   background-color: var(--color-white);
 }
 
-.card__side--back-icon {
+.card__side-icon {
   display: block;
   width: 40%;
   height: 40%;
+}
+
+.card__side-icon--front {
+  fill: var(--color-accent-dark);
+}
+
+.card__side-icon--back {
   fill: var(--color-accent);
+  transition: fill .5s ease;
+}
+
+@media only screen and (min-width: 37.5em){
+  .card{
+    width: var(--card-width-medium);
+  }
+}
+
+@media only screen and (min-width: 48em) {
+
+  .card {
+    width: var(--card-width-large);
+  }
+}
+
+
+@keyframes pulse {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.2);
+  }
+  100%{
+    transform: scale(1);
+  }
 }

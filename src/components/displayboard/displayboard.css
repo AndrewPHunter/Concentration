@@ -1,5 +1,5 @@
 :root {
-  --color-star-great: #FFEB3B;
+  --color-star-great: var(--color-gold);
   --color-star-ok: #FF9800;
   --color-star-bad: #f44336;
   --color-white-dark: #eee;
@@ -27,16 +27,6 @@
   margin-bottom: .5rem;
 }
 
-.displayboard__stars {
-  display: flex;
-}
-
-.displayboard__star {
-  margin-right: .5rem;
-  width: 30%;
-  height: 30%;
-}
-
 .displayboard__star--3 {
   fill: var(--color-star-great);
 }
@@ -49,10 +39,30 @@
   fill: var(--color-star-bad);
 }
 
+.displayboard__stars {
+  display: flex;
+  flex: 0 0 100%;
+  justify-content: center;
+  align-items: center;
 
+}
+
+.displayboard__star {
+  margin-right: .5rem;
+  width: 30%;
+  height: 30%;
+}
+
+.displayboard__moves {
+  display: flex;
+  flex: 0 0 100%;
+  justify-content: center;
+  align-items: center;
+}
 .displayboard__move-count {
   font-size: 1.1rem;
 }
+
 
 .displayboard__time {
   font-size: 1.5rem;
@@ -63,4 +73,30 @@
   height: 40%;
   fill: currentColor;
   cursor: pointer;
+}
+
+@media only screen and (min-width: 37.5em){
+
+  .displayboard__stars {
+    flex: 0 0 50%;
+  }
+
+  .displayboard__moves {
+    flex: 0 0 50%;
+  }
+
+  .displayboard__move-count {
+    font-size: 1.5rem;
+  }
+
+  .displayboard__time {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (min-width: 48em) {
+
+  .displayboard__move-count {
+    font-size: 1.75rem;
+  }
 }

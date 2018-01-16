@@ -8,6 +8,8 @@ export const padTime = (number)=>(
 
 export const generateId =  ()=> uuidv4();
 
+export const timeout = ms => new Promise(res=>setTimeout(res, ms));
+
 export const withGameEngine = (Component)=>class extends React.Component{
 
   state = {

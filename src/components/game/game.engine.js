@@ -1,11 +1,16 @@
 import {CARD_ICONS} from '../icon/icons.constants';
-import {generateId} from './game.utils';
+import {generateId, timeout, padTime} from './game.utils';
+import Clock from './game.clock';
 
 class Game {
 
   state = Game.newGameState();
 
   listeners = {};
+
+  static DECK_SIZE = Object.keys(CARD_ICONS) * 2;
+
+  static TOTAL_STAR_RATING = 3;
 
   static shuffleDeck = (deck)=>{
     let currentIndex = deck.length, temporaryValue, randomIndex;
@@ -24,43 +29,54 @@ class Game {
   static newGameState = ()=>({
     cards: [],
     selected: [],
-    timeStart: null,
-    timerInterval: null,
-    time: 0,
+    gameClock: new Clock(),
+    time: '',
     moves: 0,
     matches: 0,
-    endgame: false,
     rating: 3,
-    totalRating: 3
+    totalRating: Game.TOTAL_STAR_RATING,
+    paused: false
   });
 
   newGame = ()=>{
+    this.state.gameClock && this.state.gameClock.stop();
     this.updateGameState(()=>({
       ...Game.newGameState(),
-      timeStart: new Date().getTime(),
       cards: this.generateDeck(),
     }));
-    this.startTimer();
+    this.state.gameClock.start(this.timerUpdate);
+  };
+
+  pauseGame = ()=>{
+    this.state.gameClock.stop();
+    this.updateGameState(()=>({
+      paused: true
+    }));
+  };
+
+  resumeGame = ()=>{
+    this.state.gameClock.start(this.timerUpdate);
+    this.updateGameState(()=>({
+      paused: false
+    }));
+  };
+
+  timerUpdate = (totalSeconds)=>{
+
+    this.updateGameState(()=>({
+      time: `${padTime(Math.floor(totalSeconds/60))} : ${padTime(totalSeconds - Math.floor(totalSeconds/60) * 60)}`
+    }));
+
   };
 
   flipAllCards = ()=>{
     const {cards} = this.state;
-    const flipped = cards.forEach(card=>card.isFlipped = false);
+    const flipped = cards.map(card=>({
+      ...card,
+      isFlipped: false
+    }));
     this.updateGameState(()=>({
       cards: flipped
-    }));
-  };
-
-  startTimer = ()=>{
-    const timerInterval = setInterval(this.updateTimer, 1000);
-    this.updateGameState(()=>({
-      timerInterval
-    }));
-  };
-
-  updateTimer = ()=>{
-    this.updateGameState((prevState)=>({
-      time: new Date().getTime() - prevState.timeStart
     }));
   };
 
@@ -77,29 +93,84 @@ class Game {
 
   };
 
-  cardSelected = (index)=>{
+  cardSelected = async (index)=>{
 
     //If two cards are selected we cannot select a third card
     //Only used for transitory situation to avoid race condition
-    console.log(this.state.selected.length);
 
     if(!(this.state.selected.length < 2)){
       return;
     }
 
-    console.log(this.state.selected.length);
     const cards = [...this.state.cards];
     cards[index].isFlipped = true;
 
     this.updateGameState((prevState)=>({
       cards,
       selected: [...prevState.selected, cards[index]],
-      moves: prevState.moves + 1
+      moves: prevState.moves + 1,
+      rating: this.calculateRating(prevState.moves + 1)
     }));
+
+
+    if(this.state.selected.length===2){
+
+      const cards = [...this.state.cards];
+
+      //HACK: Allow for card animation
+      await timeout(800);
+
+      if(this.checkMatch()){
+
+        const deck = cards.map(card=>({
+          ...card,
+          matched: card.matched || card.name === this.state.selected[0].name || card.name === this.state.selected[1].name
+        }));
+
+        this.updateGameState((prevState)=>({
+          cards: deck,
+          selected: [],
+          matches: prevState.matches + 1
+        }));
+      }
+      else{
+
+        const deck = cards.map(card=>({
+          ...card,
+          isFlipped: card.matched
+        }));
+
+        this.updateGameState(()=>({
+          cards: deck,
+          selected: []
+        }));
+
+      }
+    }
+
 
   };
 
-  checkMatch = ()=> this.state.selected.length === 2 && (this.state.selected[0].name === this.state.selected[1].name);
+  calculateRating = (moves)=>{
+
+    //Perfect game assuming no luck is see all cards : 16 moves
+    //Then match all cards: 16 moves
+    //Thus 32 moves + 4 for fairness
+
+    if(moves <= 36){
+      return 3;
+    }
+
+    if(moves <=46) {
+      return 2;
+    }
+
+    return 1;
+  };
+
+  checkMatch = ()=>this.state.selected[0].name === this.state.selected[1].name;
+
+  checkEndGame = ()=>(Game.DECK_SIZE / 2) === this.state.matches;
 
   updateGameState = (predicate)=>{
     const gameState = this.state;

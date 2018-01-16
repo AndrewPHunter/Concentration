@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import GameBoard from '../gameboard';
 import DisplayBoard from '../displayboard';
-import {withGameEngine} from './game.utils';
+import {withGameEngine, timeout} from './game.utils';
 
 class Game extends Component{
 
@@ -18,9 +18,11 @@ class Game extends Component{
     gameEngine.cardSelected(index);
   };
 
-  restartGame = ()=>{
+  restartGame = async ()=>{
     const {gameEngine} = this.props;
     gameEngine.flipAllCards();
+    //HACK: Wait for animation to finish
+    await timeout(800);
     gameEngine.newGame();
   };
 

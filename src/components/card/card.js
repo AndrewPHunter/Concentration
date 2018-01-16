@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
+import Icons from '../icon/icons.constants';
 
 export default class Card extends Component {
 
@@ -18,17 +19,21 @@ export default class Card extends Component {
   };
 
   render(){
-    const {icon, isFlipped} = this.props;
+    const {icon, isFlipped, matched} = this.props;
 
     const cardClass = isFlipped ? 'card card--active': 'card';
+    const matchClass = matched ? 'card--matched' : '';
 
-    return(
-      <div className={cardClass} onClick={this.cardSelected}>
-        <div className="card__side card__side--front"/>
+    return (
+      <div className={`${cardClass} ${matchClass}`} onClick={this.cardSelected}>
+        <div className="card__side card__side--front">
+          <Icon icon={Icons.OWL} className="card__side-icon card__side-icon--front"/>
+        </div>
         <div className="card__side card__side--back">
-          <Icon icon={icon} className="card__side--back-icon"/>
+          <Icon icon={icon} className="card__side-icon card__side-icon--back"/>
         </div>
       </div>
+
     );
   }
 }
