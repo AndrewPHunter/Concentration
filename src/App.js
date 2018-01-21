@@ -4,6 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import NavigationButton from './components/navigation/navigation.button';
 import Navigation from './components/navigation/navigation';
 import Game from './components/game';
+import SettingsPage from './components/settings';
 import './App.css';
 import {withGameEngine} from "./components/game/game.utils";
 
@@ -36,6 +37,7 @@ class App extends Component {
           <div className="app__gameview">
             <Switch>
               <Route exact path="/" component={Game}/>
+              <Route path="/settings" component={SettingsPage}/>
             </Switch>
           </div>
           <div className={`app__navview ${navClass}`}>

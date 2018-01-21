@@ -1,0 +1,74 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 100%;
+  background-color: var(--color-white-dark);
+}
+
+.settings__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  border-bottom: 2px solid var(--color-accent-dark);
+  padding: 2rem;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--color-primary-text);
+}
+
+.settings__options {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 2rem;
+  margin-top: 5rem;
+}
+
+.settings-list {
+  list-style: none;
+}
+
+.settings-item {
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: row;
+  align-items: center;
+  font-size: 2rem;
+  padding-bottom: 1rem;
+  font-weight: 400;
+  color: var(--color-primary-text);
+  border-bottom: 1px solid var(--color-accent-dark);
+}
+
+.settings-item:not(:last-of-type) {
+  margin-bottom: 3rem;
+}
+
+.settings-item__text,
+.settings-item__btn {
+  display: flex;
+}
+
+.settings-item__text {
+  margin-right: auto;
+}
+
+.settings-item__btn {
+  margin-right: 1rem;
+}
+
+.settings__icon {
+  width: 3.5rem;
+  height: 3rem;
+  fill: var(--color-accent-dark);
+}
+.settings__footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5rem;
+}

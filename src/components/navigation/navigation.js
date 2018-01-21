@@ -17,6 +17,7 @@ class Navigation extends Component {
 
   onLinkSelected = (pathname)=>{
     this.props.onItemSelected();
+    console.log(pathname);
     this.props.history.push(pathname);
   };
 
@@ -28,7 +29,7 @@ class Navigation extends Component {
 
     return (
       <li className={`navigation__item ${itemActiveClass}`} key={item.pathname}>
-        <a className='navigation__link' onClick={this.onLinkSelected}>
+        <a className='navigation__link' onClick={this.onLinkSelected.bind(null, item.pathname)}>
           <Icon icon={item.icon} className='navigation__icon'/>
           <span className='navigation__text'>{item.title}</span>
         </a>

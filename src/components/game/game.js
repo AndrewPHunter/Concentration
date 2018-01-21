@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Audio from '../audio/audio';
 import GameBoard from '../gameboard';
 import DisplayBoard from '../displayboard';
 import PauseScreen from '../pauseScreen';
@@ -12,11 +13,20 @@ class Game extends Component{
     gameEngine: PropTypes.object.isRequired
   };
 
+  static songList = [
+    '/music/In_The_House.mp3',
+    '/music/Ability_To_Dance.mp3',
+    '/music/Cyber_Party.mp3',
+    '/music/Club_Dance.mp3',
+    '/music/Dance_Attack.mp3'
+  ];
+
   componentDidMount = ()=>this.props.gameEngine.newGame();
 
-  onCardSelected = (index)=>{
+  onCardSelected = async (index)=>{
     const {gameEngine} = this.props;
-    gameEngine.cardSelected(index);
+    await gameEngine.cardSelected(index);
+
   };
 
   restartGame = async ()=>{
@@ -26,7 +36,7 @@ class Game extends Component{
     await timeout(800);
     gameEngine.newGame();
   };
-  
+
   resumeGame = ()=>{
     this.props.gameEngine.resumeGame();
   };
@@ -36,10 +46,11 @@ class Game extends Component{
 
     return(
       <div className="game">
+        <Audio songs={Game.songList}/>
         {paused &&
           <div className='game__pausescreen'>
             <PauseScreen onClick={this.resumeGame}/>
-          </div>  
+          </div>
         }
         <div className="game__gameboard">
           <GameBoard cards={cards}

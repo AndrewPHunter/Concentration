@@ -35,7 +35,8 @@ class Game {
     matches: 0,
     rating: 3,
     totalRating: Game.TOTAL_STAR_RATING,
-    paused: false
+    paused: false,
+    muted: false
   });
 
   newGame = ()=>{
@@ -51,6 +52,12 @@ class Game {
     this.state.gameClock.stop();
     this.updateGameState(()=>({
       paused: true
+    }));
+  };
+
+  toggleSound = ()=>{
+    this.updateGameState((prevState)=>({
+      muted: !prevState.muted
     }));
   };
 
