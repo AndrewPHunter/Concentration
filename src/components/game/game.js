@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import GameBoard from '../gameboard';
 import DisplayBoard from '../displayboard';
+import PauseScreen from '../pauseScreen';
 import {withGameEngine, timeout} from './game.utils';
 
 class Game extends Component{
@@ -25,12 +26,21 @@ class Game extends Component{
     await timeout(800);
     gameEngine.newGame();
   };
+  
+  resumeGame = ()=>{
+    this.props.gameEngine.resumeGame();
+  };
 
   render(){
-    const {cards, rating, totalRating, moves, time} = this.props.gameState;
+    const {cards, rating, totalRating, moves, time, paused} = this.props.gameState;
 
     return(
       <div className="game">
+        {paused &&
+          <div className='game__pausescreen'>
+            <PauseScreen onClick={this.resumeGame}/>
+          </div>  
+        }
         <div className="game__gameboard">
           <GameBoard cards={cards}
                      onCardSelected={this.onCardSelected}

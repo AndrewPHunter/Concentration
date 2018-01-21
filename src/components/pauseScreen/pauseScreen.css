@@ -1,0 +1,17 @@
+.pausescreen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex: 0 0 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, .45);
+
+}
+
+.pausescreen__icon {
+  fill: var(--color-white);
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+}

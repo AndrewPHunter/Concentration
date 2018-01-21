@@ -1,0 +1,62 @@
+.navigation__button {
+  background-color: var(--color-white);
+  position: fixed;
+  height: 3.5rem;
+  width: 3.5rem;
+  top: 4rem;
+  right: 3.5rem;
+  border-radius: 50%;
+  z-index: var(--z-index-high);
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.4);
+  text-align: center;
+  cursor: pointer;
+}
+
+.navigation__button--close {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.navigation__button--close .navigation-button__icon {
+  background-color: transparent;
+}
+
+.navigation__button--close .navigation-button__icon::before {
+  top: 0;
+  transform: rotate(135deg);
+}
+
+.navigation__button--close .navigation-button__icon::after {
+  top: 0;
+  transform: rotate(-135deg);
+}
+
+.navigation-button__icon {
+  position: relative;
+  margin-top: 1.7rem;
+}
+
+.navigation-button__icon,
+.navigation-button__icon::before,
+.navigation-button__icon::after {
+  width: 1.5rem;
+  height: 2px;
+  background-color: var(--color-primary-dark);
+  display: inline-block;
+}
+
+.navigation-button__icon::before,
+.navigation-button__icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  transition: all .2s;
+}
+
+.navigation-button__icon::before {
+  top: -.5rem;
+}
+
+.navigation-button__icon::after {
+  top: .5rem;
+}
