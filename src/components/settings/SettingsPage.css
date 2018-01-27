@@ -3,6 +3,7 @@
   flex-direction: column;
   flex: 0 0 100%;
   background-color: var(--color-white-dark);
+  height: 100vh;
 }
 
 .settings__header {
@@ -66,9 +67,22 @@
   width: 3.5rem;
   height: 3rem;
   fill: var(--color-accent-dark);
+  margin-right: 3rem;
 }
 .settings__footer {
   display: flex;
   justify-content: flex-end;
-  margin-right: 5rem;
+  margin-right: 3rem;
+  font-size: 2rem;
+}
+
+.btn-clear{
+  background-color: var(--color-red);
+  color: var(--color-white);
+  padding: .5rem 1rem;
+}
+
+.btn-save {
+  background-color: var(--color-accent);
+  color: var(--color-white);
 }

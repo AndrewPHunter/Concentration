@@ -21,7 +21,10 @@ class Game extends Component{
     '/music/Dance_Attack.mp3'
   ];
 
-  componentDidMount = ()=>this.props.gameEngine.newGame();
+  componentDidMount = ()=>{
+    if(this.props.gameState.inProgress) return;
+    this.props.gameEngine.newGame();
+  };
 
   onCardSelected = async (index)=>{
     const {gameEngine} = this.props;

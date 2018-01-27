@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router';
 import {withGameEngine} from "../game/game.utils";
+import Button from '../button';
 import Icon from '../icon/icon';
 import ICONS from '../icon/icons.constants';
 
@@ -8,12 +10,19 @@ class SettingsPage extends Component {
 
   static propTypes = {
     gameEngine: PropTypes.object.isRequired,
-    gameState: PropTypes.object.isRequired
+    gameState: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
 
   toggleSound = ()=>{
     this.props.gameEngine.toggleSound();
   };
+
+  onClearHistory = ()=>{
+
+  };
+
+  onClose = ()=>this.props.history.goBack();
 
   render(){
 
@@ -32,7 +41,7 @@ class SettingsPage extends Component {
                 Clear Local Storage
               </div>
               <div className="settings-item__btn">
-                <button className="btn-clear">Clear</button>
+                <Button text="clear" onAction={this.onClearHistory} className='btn-clear'/>
               </div>
             </li>
             <li className="settings-item">
@@ -46,11 +55,11 @@ class SettingsPage extends Component {
           </ul>
         </div>
         <div className="settings__footer">
-          <button className='btn-save'>Save</button>
+          <Button text="close" onAction={this.onClose} className="btn-save"/>
         </div>
       </div>
     );
   }
 }
 
-export default withGameEngine(SettingsPage);
+export default withRouter(withGameEngine(SettingsPage));

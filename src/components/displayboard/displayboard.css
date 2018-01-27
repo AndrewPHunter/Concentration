@@ -1,7 +1,7 @@
 :root {
   --color-star-great: var(--color-gold);
   --color-star-ok: #FF9800;
-  --color-star-bad: #f44336;
+  --color-star-bad: var(--color-red);
   --color-board: #333;
 }
 

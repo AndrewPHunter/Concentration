@@ -36,7 +36,8 @@ class Game {
     rating: 3,
     totalRating: Game.TOTAL_STAR_RATING,
     paused: false,
-    muted: false
+    muted: false,
+    inProgress: false
   });
 
   newGame = ()=>{
@@ -44,6 +45,7 @@ class Game {
     this.updateGameState(()=>({
       ...Game.newGameState(),
       cards: this.generateDeck(),
+      inProgress: true
     }));
     this.state.gameClock.start(this.timerUpdate);
   };

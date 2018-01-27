@@ -36,3 +36,15 @@
   }
 
 }
+
+@media only screen and (min-width: 64em) {
+
+  .app {
+    justify-content: center;
+    align-items: center;
+  }
+  .app__gameview {
+    max-width: 1024px;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.6);
+  }
+}

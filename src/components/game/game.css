@@ -21,3 +21,16 @@
 .game__displayboard {
   height: 10vh;
 }
+
+@media only screen and (min-width: 64em) {
+
+  .game {
+    max-height: 90vh;
+  }
+
+  .game__gameboard {
+    height: 80vh;
+  }
+
+
+}
