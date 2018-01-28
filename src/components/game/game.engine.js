@@ -1,5 +1,5 @@
 import {CARD_ICONS} from '../icon/icons.constants';
-import {generateId, timeout, padTime} from './game.utils';
+import {generateId, timeout, padTime, saveItem, getItem, deleteItem} from './game.utils';
 import Clock from './game.clock';
 
 class Game {
@@ -11,6 +11,10 @@ class Game {
   static DECK_SIZE = Object.keys(CARD_ICONS) * 2;
 
   static TOTAL_STAR_RATING = 3;
+
+  static STORAGE_KEYS = {
+    LEADERBOARD: 'LEADERBOARD'
+  };
 
   static shuffleDeck = (deck)=>{
     let currentIndex = deck.length, temporaryValue, randomIndex;
@@ -35,7 +39,7 @@ class Game {
     matches: 0,
     rating: 3,
     totalRating: Game.TOTAL_STAR_RATING,
-    paused: false,
+    paused: true,
     muted: false,
     inProgress: false
   });
@@ -45,9 +49,8 @@ class Game {
     this.updateGameState(()=>({
       ...Game.newGameState(),
       cards: this.generateDeck(),
-      inProgress: true
+      inProgress:true
     }));
-    this.state.gameClock.start(this.timerUpdate);
   };
 
   pauseGame = ()=>{
@@ -179,7 +182,13 @@ class Game {
 
   checkMatch = ()=>this.state.selected[0].name === this.state.selected[1].name;
 
-  checkEndGame = ()=>(Game.DECK_SIZE / 2) === this.state.matches;
+  endGame = ()=>(this.state.cards.length / 2) === this.state.matches;
+
+  loadLeaderBoard = async ()=> await getItem(Game.STORAGE_KEYS.LEADERBOARD);
+
+  saveLeaderBoard = async (leaders)=> await saveItem(Game.STORAGE_KEYS.LEADERBOARD, leaders);
+
+  clearStorage = async ()=> await deleteItem(Game.STORAGE_KEYS.LEADERBOARD);
 
   updateGameState = (predicate)=>{
     const gameState = this.state;

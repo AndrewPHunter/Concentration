@@ -1,0 +1,19 @@
+.btn{
+  border: none;
+  outline: none;
+  border-radius: 10rem;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  transition: all .2s;
+}
+
+.btn:hover {
+  transform: translateY(-.3rem);
+  box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
+}
+
+.btn:active{
+  transform: translateY(-.1rem);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+}

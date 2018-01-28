@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router';
 import {withGameEngine} from "../game/game.utils";
-import Button from '../button';
+import Button from '../common/button';
 import Icon from '../icon/icon';
 import ICONS from '../icon/icons.constants';
 
@@ -19,10 +19,10 @@ class SettingsPage extends Component {
   };
 
   onClearHistory = ()=>{
-
+    this.props.gameEngine.clearStorage();
   };
 
-  onClose = ()=>this.props.history.goBack();
+  onClose = ()=>this.props.history.push({pathname: '/'});
 
   render(){
 

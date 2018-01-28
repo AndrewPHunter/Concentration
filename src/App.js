@@ -5,6 +5,7 @@ import NavigationButton from './components/navigation/navigation.button';
 import Navigation from './components/navigation/navigation';
 import Game from './components/game';
 import SettingsPage from './components/settings';
+import LeaderBoard from './components/leaderboard';
 import './App.css';
 import {withGameEngine} from "./components/game/game.utils";
 
@@ -38,6 +39,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Game}/>
               <Route path="/settings" component={SettingsPage}/>
+              <Route path="/leaderboard" component={LeaderBoard}/>
             </Switch>
           </div>
           <div className={`app__navview ${navClass}`}>

@@ -1,0 +1,106 @@
+.winner-dialog {
+  display: flex;
+  flex-direction: column;
+}
+
+.winner-dialog__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid var(--color-accent-dark);
+  padding: 2rem;
+}
+
+.winner-dialog-title {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: .3rem;
+}
+
+.winner-dialog__body {
+  padding: 1rem;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--color-accent-dark);
+}
+
+.game-results{
+  display: flex;
+  flex: 0 0 100%;
+
+}
+
+.game-results__list{
+  list-style: none;
+  display: flex;
+  flex: 0 0 100%;
+  justify-content: space-between;
+}
+
+.game-results__item {
+  display: flex;
+  flex: 0 0 33.33333%;
+  font-size: 1.4rem;
+  padding-right: 1rem;
+  justify-content: center;
+}
+
+.game-results__item--bold {
+  font-weight: 700;
+  padding-right: 1rem;
+}
+
+.rating-container {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.leader-name{
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.leader-name__input {
+  border-radius: 4rem;
+  border-color: var(--color-accent-dark);
+  padding: 1rem;
+  text-align: center;
+  width: 40%;
+  transition: width .2s;
+}
+
+.leader-name__input:focus{
+  width: 60%;
+  outline: none;
+}
+
+.winner-dialog__footer{
+  display: flex;
+  flex: 0 0 100%;
+  justify-content: flex-end;
+  margin: 1rem 2rem;
+  margin-top: .5rem;
+}
+
+.winner-submit {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+@media only screen and (min-width: 30em) {
+  .rating-container{
+    flex: 0 0 40%;
+  }
+}
+
+@media only screen and (min-width: 48em) {
+
+  .rating-container {
+    flex: 0 0 25%;
+  }
+}

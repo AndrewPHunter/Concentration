@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router';
 import Audio from '../audio/audio';
 import GameBoard from '../gameboard';
 import DisplayBoard from '../displayboard';
@@ -10,7 +11,8 @@ class Game extends Component{
 
   static propTypes = {
     gameState: PropTypes.object.isRequired,
-    gameEngine: PropTypes.object.isRequired
+    gameEngine: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
 
   static songList = [
@@ -27,9 +29,22 @@ class Game extends Component{
   };
 
   onCardSelected = async (index)=>{
-    const {gameEngine} = this.props;
+    const {gameEngine, gameState} = this.props;
     await gameEngine.cardSelected(index);
+    if(gameEngine.endGame()){
 
+      console.log('game over');
+      this.props.history.push({
+        pathname: '/leaderboard',
+        state:{
+          results: {
+            moves: gameState.moves,
+            rating: gameState.rating,
+            time: gameState.time
+          }
+        }
+      });
+    }
   };
 
   restartGame = async ()=>{
@@ -75,4 +90,4 @@ class Game extends Component{
 
 }
 
-export default withGameEngine(Game);
+export default withRouter(withGameEngine(Game));

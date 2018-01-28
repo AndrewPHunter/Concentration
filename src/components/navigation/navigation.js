@@ -17,7 +17,6 @@ class Navigation extends Component {
 
   onLinkSelected = (pathname)=>{
     this.props.onItemSelected();
-    console.log(pathname);
     this.props.history.push(pathname);
   };
 

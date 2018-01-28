@@ -1,6 +1,13 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
+import storage from 'local-storage-fallback';
 import gameEngine from './game.engine';
+
+
+//shim localstorage if not available
+if(!('localStorage' in window)) {
+  window.localStorage = storage;
+}
 
 export const padTime = (number)=>(
   ("0" + number).slice(-2)
@@ -39,4 +46,40 @@ export const withGameEngine = (Component)=>class extends React.Component{
       <Component gameState={gameEngine.state} gameEngine={gameEngine} {...this.props}/>
     );
   }
+};
+
+export const saveItem = (key, item)=>{
+  return new Promise((resolve, reject)=>{
+    try{
+      localStorage.setItem(key, JSON.stringify(item));
+      resolve();
+    }
+    catch(err){
+      reject(err);
+    }
+  });
+};
+
+export const getItem = (key)=>{
+  return new Promise((resolve, reject)=>{
+    try{
+      const item = JSON.parse(localStorage.getItem(key));
+      resolve(item);
+    }
+    catch(err){
+      reject(err);
+    }
+  });
+};
+
+export const deleteItem = (key)=>{
+  return new Promise((resolve, reject)=>{
+    try{
+      localStorage.removeItem(key);
+      resolve();
+    }
+    catch(err){
+      reject(err);
+    }
+  });
 };

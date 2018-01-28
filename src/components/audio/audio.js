@@ -33,7 +33,6 @@ class Audio extends Component{
   };
 
   changeTracks = ()=>{
-    console.log('what the hell');
     this.setState((prevState)=>({
       current: (prevState.current + 1)%this.props.songs.length
     }), this.element.play());

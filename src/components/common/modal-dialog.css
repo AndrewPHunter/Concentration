@@ -1,0 +1,37 @@
+.modal__container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.4);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex: 0 0 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-index-high);
+}
+
+.modal__body{
+  background-color: var(--color-white-dark);
+  width: 100%;
+  animation: fadeInTop .5s ease-in;
+}
+
+@media only screen and (min-width: 48em) {
+  .modal__body{
+    max-width: 64em;
+  }
+}
+
+@keyframes fadeInTop {
+  0%{
+    opacity: 0;
+    transform: translateY(-10rem);
+  }
+
+  100%{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

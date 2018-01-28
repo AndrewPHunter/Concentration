@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './button.css';
 
 const Button = ({text, onAction, className})=>(
-  <a className={`btn ${className}`} onClick={onAction}>{`${text}`}</a>
+  <button className={`btn ${className}`} onClick={onAction}>{`${text}`}</button>
 );
 
 Button.propTypes = {

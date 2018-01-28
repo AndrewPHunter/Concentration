@@ -1,0 +1,42 @@
+.leader-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+}
+
+.leader-table__header,
+.leader-table__row{
+  display: table-row;
+}
+
+.leader-table th,
+.leader-table__row td {
+  display: table-cell;
+  width: 20%;
+}
+
+.leader-table th{
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.leader-table th:first-of-type{
+  text-align: left;
+}
+
+.leader-table__row:not(:last-of-type) {
+  margin-bottom: 1rem;
+}
+
+.leader-table__row td {
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.leader-table__row td:first-of-type {
+  text-align: left;
+}
