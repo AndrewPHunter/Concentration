@@ -26,30 +26,12 @@
   margin-bottom: .5rem;
 }
 
-.displayboard__star--3 {
-  fill: var(--color-star-great);
-}
-
-.displayboard__star--2 {
-  fill: var(--color-star-ok);
-}
-
-.displayboard__star--1 {
-  fill: var(--color-star-bad);
-}
-
 .displayboard__stars {
   display: flex;
   flex: 0 0 100%;
   justify-content: center;
   align-items: center;
 
-}
-
-.displayboard__star {
-  margin-right: .5rem;
-  width: 30%;
-  height: 30%;
 }
 
 .displayboard__moves {

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import StarRating from '../common/star-rating';
 import Icon from '../icon/icon';
 import ICONS from '../icon/icons.constants';
 
@@ -14,31 +15,16 @@ class DisplayBoard extends Component {
     restart: PropTypes.func
   };
 
-  generateStars = ()=>{
-    const {starRating, totalStars} = this.props;
-    const stars = [
-      ...[...Array(starRating)].map((_,index)=>(
-        <Icon icon={ICONS.STAR_FULL} className={`displayboard__star displayboard__star--${starRating}`} key={index}/>
-      )),
-      ...[...Array(totalStars - starRating)].map((_,index)=>(
-        <Icon icon={ICONS.STAR_EMPTY} className={`displayboard__star displayboard__star--${starRating}`} key={index+3}/>
-      ))
-    ];
-    return(
-      <div className="displayboard__stars">
-        {stars}
-      </div>
-    );
-  };
-
   render(){
 
-    const {moves, time, restart} = this.props;
+    const {moves, time, restart, starRating, totalStars} = this.props;
 
     return(
       <div className="displayboard">
         <div className="displayboard__section">
-          {this.generateStars()}
+          <div className="displayboard__stars">
+            <StarRating rating={starRating} total={totalStars}/>
+          </div>
           <div className="displayboard__moves">
             <p className="displayboard__move-count">
               {moves} Moves

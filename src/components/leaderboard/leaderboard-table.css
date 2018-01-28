@@ -40,3 +40,9 @@
 .leader-table__row td:first-of-type {
   text-align: left;
 }
+
+
+.leader-table__star-container > *{
+  max-width: 6rem;
+  display: inline-flex;
+}

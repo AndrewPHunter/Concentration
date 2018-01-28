@@ -17,7 +17,7 @@ class LeaderboardTable extends Component{
       <td>{key}</td>
       <td>{leader.name}</td>
       <td>{leader.moves}</td>
-      <td><StarRating rating={leader.rating} total={this.props.totalRating}/></td>
+      <td className="leader-table__star-container"><StarRating rating={leader.rating} total={this.props.totalRating}/></td>
       <td>{leader.time}</td>
     </tr>
   );

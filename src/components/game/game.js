@@ -32,8 +32,6 @@ class Game extends Component{
     const {gameEngine, gameState} = this.props;
     await gameEngine.cardSelected(index);
     if(gameEngine.endGame()){
-
-      console.log('game over');
       this.props.history.push({
         pathname: '/leaderboard',
         state:{
@@ -44,6 +42,7 @@ class Game extends Component{
           }
         }
       });
+      this.props.gameEngine.newGame();
     }
   };
 
