@@ -87,9 +87,18 @@
   margin-top: .5rem;
 }
 
+.winner-dialog__footer > *:not(:last-child) {
+  margin-right: 1rem;
+}
+
 .winner-submit {
   background-color: var(--color-accent);
   color: var(--color-white);
+}
+
+.winner-restart {
+  color: var(--color-white);
+  background-color: var(--color-primary-dark);
 }
 
 @media only screen and (min-width: 30em) {

@@ -6,7 +6,7 @@ import Button from '../common/button';
 
 import './winner-dialog.css';
 
-const winner = ({results, totalRating, onNameUpdate, onSubmit})=>(
+const winner = ({results, totalRating, onNameUpdate, onSubmit, onRestart})=>(
   <div className="winner-dialog">
     <div className="winner-dialog__header">
       <h2 className="winner-dialog-title">Congratulations!!!!</h2>
@@ -39,7 +39,8 @@ const winner = ({results, totalRating, onNameUpdate, onSubmit})=>(
       </div>
     </div>
     <div className="winner-dialog__footer">
-      <Button text="submit" onAction={onSubmit} className="winner-submit"/>
+      <Button text="submit score" onAction={onSubmit} className="winner-submit"/>
+      <Button text="restart game" onAction={onRestart} className="winner-restart"/>
     </div>
   </div>
 );
@@ -50,7 +51,8 @@ WinnerDialog.propTypes = {
   results: PropTypes.object.isRequired,
   totalRating: PropTypes.number.isRequired,
   onNameUpdate: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  onRestart: PropTypes.func.isRequired
 };
 
 export default WinnerDialog;

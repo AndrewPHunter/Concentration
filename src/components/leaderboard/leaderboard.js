@@ -8,6 +8,7 @@ import {withGameEngine}from '../game/game.utils';
 class LeaderBoard extends Component{
 
   static propTypes = {
+    history: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     gameEngine: PropTypes.object.isRequired
   };
@@ -20,7 +21,7 @@ class LeaderBoard extends Component{
 
   componentDidMount = async ()=>{
     const leaders = await this.props.gameEngine.loadLeaderBoard();
-    const gameResults = (this.props.location.state) ? this.props.location.state.results : null;
+    const gameResults = (this.props.location.state) ? this.props.location.state.results : {moves: 2, rating: 2, time: '06:26'};
 
     this.setState(()=>({
       leaders: leaders || [],
@@ -36,6 +37,8 @@ class LeaderBoard extends Component{
       name: ''
     }), ()=>this.props.gameEngine.saveLeaderBoard(this.state.leaders));
   };
+
+  onRestartGame = ()=> this.props.history.goBack();
 
   onNameUpdate = (name)=>this.setState(()=>({name}));
 
@@ -64,7 +67,8 @@ class LeaderBoard extends Component{
         {results && <WinnerDialog results={{name, ...results}}
                                   totalRating={this.props.gameEngine.state.totalRating}
                                   onNameUpdate={this.onNameUpdate}
-                                  onSubmit={this.onScoreSubmit}/>
+                                  onSubmit={this.onScoreSubmit}
+                                  onRestart={this.onRestartGame}/>
         }
         <div className="leaderboard__header">
           <h1 className="title">Leader Board</h1>
