@@ -16,6 +16,8 @@ class Game {
     LEADERBOARD: 'LEADERBOARD'
   };
 
+  //Perform card shuffling by starting at end of deck and swapping cards with random
+  //card found within the deck
   static shuffleDeck = (deck)=>{
     let currentIndex = deck.length, temporaryValue, randomIndex;
 
@@ -30,6 +32,8 @@ class Game {
     return deck;
   };
 
+  //Start state of every new game
+  //Game starts 'Paused'
   static newGameState = ()=>({
     cards: [],
     selected: [],
@@ -44,6 +48,7 @@ class Game {
     inProgress: false
   });
 
+  //Starts a new game by setting state to new game state configuration
   newGame = ()=>{
     this.state.gameClock && this.state.gameClock.stop();
     this.updateGameState(()=>({
@@ -53,6 +58,7 @@ class Game {
     }));
   };
 
+  //Stops the game clock and sets the paused flag to true
   pauseGame = ()=>{
     this.state.gameClock.stop();
     this.updateGameState(()=>({
@@ -60,12 +66,14 @@ class Game {
     }));
   };
 
+  //Toggles the muted flag to play or pause the sound
   toggleSound = ()=>{
     this.updateGameState((prevState)=>({
       muted: !prevState.muted
     }));
   };
 
+  //starts the game clock and sets paused flag to false
   resumeGame = ()=>{
     this.state.gameClock.start(this.timerUpdate);
     this.updateGameState(()=>({
@@ -73,6 +81,7 @@ class Game {
     }));
   };
 
+  //Callback function registered to the clock which updates the game time to be displayed as a string
   timerUpdate = (totalSeconds)=>{
 
     this.updateGameState(()=>({
@@ -81,6 +90,7 @@ class Game {
 
   };
 
+  //Goes through all cards in the game and sets their flipped flag to false, making them 'face down'
   flipAllCards = ()=>{
     const {cards} = this.state;
     const flipped = cards.map(card=>({
@@ -92,6 +102,8 @@ class Game {
     }));
   };
 
+  //Deck consists of pairs of the same icon card. Maps through all icons twice to give complete deck of card
+  //with all pairs
   generateDeck = ()=>{
 
     const makeCards = ()=>(Object.keys(CARD_ICONS).map(key=>({
@@ -105,6 +117,12 @@ class Game {
 
   };
 
+  //When a card is selected:
+  // 1. See if two cards have been selected
+  // 2. if yes check for match
+  // 3. if match, set cards as matched and update match count
+  // 4. if not, flip cards back over
+  // 5. for all possibilities update move count where 1 move is two cards selected
   cardSelected = async (index)=>{
 
     //If two cards are selected we cannot select a third card
@@ -123,6 +141,7 @@ class Game {
     }));
 
 
+    //We have selected two cards, now check for match
     if(this.state.selected.length===2){
 
       const cards = [...this.state.cards];
@@ -130,8 +149,11 @@ class Game {
       //HACK: Allow for card animation
       await timeout(800);
 
+
       if(this.checkMatch()){
 
+        //Go through all the cards and leave as matched if matched or if they were part of the matched pair set to
+        //matched
         const deck = cards.map(card=>({
           ...card,
           matched: card.matched || card.name === this.state.selected[0].name || card.name === this.state.selected[1].name
@@ -147,6 +169,7 @@ class Game {
       }
       else{
 
+        //Cards arent a match so only leave cards that were matched flipped
         const deck = cards.map(card=>({
           ...card,
           isFlipped: card.matched
@@ -186,12 +209,17 @@ class Game {
 
   endGame = ()=>(this.state.cards.length / 2) === this.state.matches;
 
+  //Load leaderboard from local store
   loadLeaderBoard = async ()=> await getItem(Game.STORAGE_KEYS.LEADERBOARD);
 
+  //save the leaderboard to local store
   saveLeaderBoard = async (leaders)=> await saveItem(Game.STORAGE_KEYS.LEADERBOARD, leaders);
 
+  //clear out the leader board
   clearStorage = async ()=> await deleteItem(Game.STORAGE_KEYS.LEADERBOARD);
 
+  //Utility function to update gamestate while maintaining immutability
+  // Notify all subscribers of game that state has been changed
   updateGameState = (predicate)=>{
     const gameState = this.state;
 
@@ -203,6 +231,7 @@ class Game {
     Object.keys(this.listeners).forEach(key=>this.listeners[key](this.state));
   };
 
+  //Standard subscribe pattern
   subscribe = (listener)=>{
     const id = generateId();
     this.listeners[id] = listener;
@@ -214,5 +243,6 @@ class Game {
   };
 }
 
+//Game is a singleton
 const game = new Game();
 export default game;

@@ -17,6 +17,7 @@ export const generateId =  ()=> uuidv4();
 
 export const timeout = ms => new Promise(res=>setTimeout(res, ms));
 
+//Standard React wrapper pattern to allow components to receive game and state via injected props
 export const withGameEngine = (Component)=>class extends React.Component{
 
   state = {
@@ -48,6 +49,7 @@ export const withGameEngine = (Component)=>class extends React.Component{
   }
 };
 
+/* asynchronous wrappers for local storage*/
 export const saveItem = (key, item)=>{
   return new Promise((resolve, reject)=>{
     try{
