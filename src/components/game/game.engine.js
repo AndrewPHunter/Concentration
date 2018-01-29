@@ -119,9 +119,7 @@ class Game {
 
     this.updateGameState((prevState)=>({
       cards,
-      selected: [...prevState.selected, cards[index]],
-      moves: prevState.moves + 1,
-      rating: this.calculateRating(prevState.moves + 1)
+      selected: [...prevState.selected, cards[index]]
     }));
 
 
@@ -142,7 +140,9 @@ class Game {
         this.updateGameState((prevState)=>({
           cards: deck,
           selected: [],
-          matches: prevState.matches + 1
+          matches: prevState.matches + 1,
+          moves: prevState.moves + 1,
+          rating: this.calculateRating(prevState.moves + 1)
         }));
       }
       else{
@@ -152,9 +152,11 @@ class Game {
           isFlipped: card.matched
         }));
 
-        this.updateGameState(()=>({
+        this.updateGameState((prevState)=>({
           cards: deck,
-          selected: []
+          selected: [],
+          moves: prevState.moves + 1,
+          rating: this.calculateRating(prevState.moves + 1)
         }));
 
       }
@@ -165,15 +167,15 @@ class Game {
 
   calculateRating = (moves)=>{
 
-    //Perfect game assuming no luck is see all cards : 16 moves
-    //Then match all cards: 16 moves
-    //Thus 32 moves + 4 for fairness
+    //Perfect game assuming no luck is see all cards : 8 pairs
+    //Then match all cards: 8 pairs
+    //Thus 16 moves + 4 for fairness
 
-    if(moves <= 36){
+    if(moves <= 20){
       return 3;
     }
 
-    if(moves <=46) {
+    if(moves <=28) {
       return 2;
     }
 
