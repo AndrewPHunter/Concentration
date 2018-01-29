@@ -5,6 +5,10 @@ import LeaderTable from './leaderboard-table';
 import {withRouter} from 'react-router';
 import {withGameEngine}from '../game/game.utils';
 
+/*
+ * Main leader board component that controls logic for displaying dialog
+ * and loading list from store
+ */
 class LeaderBoard extends Component{
 
   static propTypes = {
@@ -19,9 +23,13 @@ class LeaderBoard extends Component{
     name: ''
   };
 
+  /*
+   * asynchronously load leader list from store to not block rendering
+   * Check if coming to leader board from a game win
+   */
   componentDidMount = async ()=>{
     const leaders = await this.props.gameEngine.loadLeaderBoard();
-    const gameResults = (this.props.location.state) ? this.props.location.state.results : {moves: 2, rating: 2, time: '06:26'};
+    const gameResults = (this.props.location.state) ? this.props.location.state.results : null;
 
     this.setState(()=>({
       leaders: leaders || [],
@@ -29,6 +37,10 @@ class LeaderBoard extends Component{
     }));
   };
 
+  /*
+   * update leader list with user info on score submit and reset state to clear dialog
+   * Once state updated, save list to store asynchronously
+   */
   onScoreSubmit = ()=>{
     const {results, name} = this.state;
     this.setState((prevState)=>({
@@ -38,16 +50,28 @@ class LeaderBoard extends Component{
     }), ()=>this.props.gameEngine.saveLeaderBoard(this.state.leaders));
   };
 
+  /*
+   * navigate back to game board if user wants to restart game per rubric
+   */
   onRestartGame = ()=> this.props.history.goBack();
 
+  /*
+   * needed to maintain user name on input
+   */
   onNameUpdate = (name)=>this.setState(()=>({name}));
 
+  /*
+   * element to display if no leaders found in storage
+   */
   emptyLeaderBoard = ()=>(
     <div className="empty-leaderboard">
       There are no saved leaders. Play a game to claim your spot!
     </div>
   );
 
+  /*
+   * render the leader list component
+   */
   leaderList = ()=>(
     <div className="leader-container">
       <LeaderTable leaders={this.state.leaders}
@@ -55,6 +79,9 @@ class LeaderBoard extends Component{
     </div>
   );
 
+  /*
+   * if we have a list to display, display that, if not display empty leader list message
+   */
   renderBody = ()=>
     (this.state.leaders.length === 0) ? this.emptyLeaderBoard()
                                       : this.leaderList();

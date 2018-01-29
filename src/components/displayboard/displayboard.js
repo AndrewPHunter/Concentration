@@ -4,7 +4,9 @@ import StarRating from '../common/star-rating';
 import Icon from '../icon/icon';
 import ICONS from '../icon/icons.constants';
 
-
+/*
+ * Display board providing player game information during play
+ */
 class DisplayBoard extends Component {
 
   static propTypes = {

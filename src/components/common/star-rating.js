@@ -6,6 +6,10 @@ import ICONS from '../icon/icons.constants';
 import './star-rating.css';
 
 const StarRating = ({rating, total})=>{
+
+  /*
+   * Provides both filled and non-filled stars for rating
+   */
   const stars = [
     ...[...Array(rating)].map((_,index)=>(
       <Icon icon={ICONS.STAR_FULL} className={`star star--${rating}`} key={index}/>

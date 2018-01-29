@@ -12,6 +12,7 @@ export default class Card extends Component {
     matched: PropTypes.bool.isRequired
   };
 
+  //fires the card selected event only if the card is not already flipped
   cardSelected = ()=>{
     if(!this.props.isFlipped){
       this.props.onCardSelected();

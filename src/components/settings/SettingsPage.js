@@ -6,6 +6,9 @@ import Button from '../common/button';
 import Icon from '../icon/icon';
 import ICONS from '../icon/icons.constants';
 
+/*
+ * Settings page component that allows options for clearing history and muting the background music
+ */
 class SettingsPage extends Component {
 
   static propTypes = {
@@ -14,14 +17,23 @@ class SettingsPage extends Component {
     history: PropTypes.object.isRequired
   };
 
+  /*
+   * toggle the music, either muted or playing
+   */
   toggleSound = ()=>{
     this.props.gameEngine.toggleSound();
   };
 
+  /*
+   * clear the local leader store asynchronously
+   */
   onClearHistory = ()=>{
     this.props.gameEngine.clearStorage();
   };
 
+  /*
+   * close the navigation page by navigating to the game board
+   */
   onClose = ()=>this.props.history.push({pathname: '/'});
 
   render(){

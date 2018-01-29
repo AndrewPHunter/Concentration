@@ -10,6 +10,9 @@ import './App.css';
 import {withGameEngine} from "./components/game/game.utils";
 
 
+/*
+ * Provides shell to give over all responsive layout and design to the game
+ */
 class App extends Component {
 
   static propTypes = {
@@ -20,6 +23,9 @@ class App extends Component {
     navExpanded: false
   };
 
+  /*
+   * pauses game play when the navigation menu is expanded
+   */
   onNavigationToggle = ()=>{
     this.props.gameEngine.pauseGame();
     this.setState((prevState)=>({

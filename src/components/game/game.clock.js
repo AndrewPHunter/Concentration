@@ -1,3 +1,7 @@
+
+/*
+ * Clock class to provide timer functionality for the game
+ */
 class Clock{
 
   constructor(){
@@ -9,6 +13,7 @@ class Clock{
     };
   }
 
+  //Starts timer and registers any callback functions
   start = (callback)=>{
     const interval = setInterval(this.updateTime, 1000);
     this.updateState(()=>({
@@ -17,6 +22,7 @@ class Clock{
     }));
   };
 
+  //Clears timer interval
   stop = ()=>{
     clearInterval(this.state.interval);
     this.updateState(()=>({
@@ -24,6 +30,7 @@ class Clock{
     }));
   };
 
+  //Resets internal tick count to 0
   reset = ()=>{
     if(this.state.interval){
       clearInterval(this.state.interval);
@@ -34,6 +41,7 @@ class Clock{
     }));
   };
 
+  //Updates internal tick count and calls registered callback
   updateTime = ()=>{
     this.updateState((prevState)=>({
       totalSeconds:prevState.totalSeconds + 1
@@ -41,6 +49,7 @@ class Clock{
     this.state.callback(this.state.totalSeconds)
   };
 
+  //Utility function to update clock state immutably
   updateState = (predicate)=>{
     const clockState = this.state;
     this.state = {

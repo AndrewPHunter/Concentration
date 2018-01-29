@@ -24,6 +24,7 @@ class Audio extends Component{
     }
   };
 
+  //add event handler to change tracks when song ends
   bindElement = (element)=>{
     this.element = element;
     if(this.element) {
@@ -32,6 +33,7 @@ class Audio extends Component{
 
   };
 
+  //cycle through all the tracks present in the song array passed as a prop
   changeTracks = ()=>{
     this.setState((prevState)=>({
       current: (prevState.current + 1)%this.props.songs.length

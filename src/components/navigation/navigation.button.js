@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import './navigation.button.css';
 
+/*
+ * Navigation button component. Displays nice animation on opening and closing navigation pane
+ */
 const navigationButton = ({onClick, close})=>{
 
   const buttonStateClass = close ? 'navigation__button--close': '';

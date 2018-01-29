@@ -5,6 +5,9 @@ import StarRating from '../common/star-rating';
 
 import './leaderboard-table.css';
 
+/*
+ * Table component to display high scores
+ */
 class LeaderboardTable extends Component{
 
   static propTypes = {
@@ -22,6 +25,10 @@ class LeaderboardTable extends Component{
     </tr>
   );
 
+  /*
+   * Sort the high scores by rating, moves and then time
+   * Display all as table rows
+   */
   mapLeadersToSortedRows = (leaders)=>{
     const sorted = [...leaders].sort(sortBy('-rating', 'moves', 'time'));
     return sorted.map((leader, key)=>this.makeLeaderRow(key+1, leader));

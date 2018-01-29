@@ -6,6 +6,9 @@ import ICONS from '../icon/icons.constants';
 
 import './navigation.css';
 
+/*
+ * Navigation component that handles styling of navigation pane and elements
+ */
 class Navigation extends Component {
 
   static propTypes = {
@@ -15,11 +18,17 @@ class Navigation extends Component {
     location: PropTypes.object.isRequired
   };
 
+  /*
+   * navigation to selected link and fire link selected action
+   */
   onLinkSelected = (pathname)=>{
     this.props.onItemSelected();
     this.props.history.push(pathname);
   };
 
+  /*
+   * wrapper for a element to provide consistent style and highlighting when active route
+   */
   generateLink = (item)=>{
 
     const {location} = this.props;
@@ -36,6 +45,9 @@ class Navigation extends Component {
     );
   };
 
+  /*
+   * Maps each route used in app to link element above
+   */
   generateNavLinks = ()=>{
 
     const links = [

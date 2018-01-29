@@ -7,6 +7,10 @@ import DisplayBoard from '../displayboard';
 import PauseScreen from '../pauseScreen';
 import {withGameEngine, timeout} from './game.utils';
 
+/*
+ * Main game component that displays the gameboard, displayboard and handles
+ * user interaction logic
+ */
 class Game extends Component{
 
   static propTypes = {
@@ -23,11 +27,19 @@ class Game extends Component{
     '/music/Dance_Attack.mp3'
   ];
 
+  /*
+   * Game is a singleton that gets paused when user navigates to another page. If returning and game in progress do nothing
+   * If a game is not in progress start a new game
+   */
   componentDidMount = ()=>{
     if(this.props.gameState.inProgress) return;
     this.props.gameEngine.newGame();
   };
 
+  /*
+   * Once a player selects a card, send that card to the game engine
+   * Check for end of game and navigate to leaderboard if game is won
+   */
   onCardSelected = async (index)=>{
     const {gameEngine, gameState} = this.props;
     await gameEngine.cardSelected(index);
@@ -46,6 +58,10 @@ class Game extends Component{
     }
   };
 
+  /*
+   * restarts the game by resetting cards, and starting new game
+   * Cards have to be face down before new game starts to prevent user from seeing new card locations
+   */
   restartGame = async ()=>{
     const {gameEngine} = this.props;
     gameEngine.flipAllCards();
@@ -54,6 +70,9 @@ class Game extends Component{
     gameEngine.newGame();
   };
 
+  /*
+   * resumes a paused game
+   */
   resumeGame = ()=>{
     this.props.gameEngine.resumeGame();
   };

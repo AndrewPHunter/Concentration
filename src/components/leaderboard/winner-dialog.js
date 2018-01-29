@@ -6,6 +6,9 @@ import Button from '../common/button';
 
 import './winner-dialog.css';
 
+/*
+ * Winner dialog component
+ */
 const winner = ({results, totalRating, onNameUpdate, onSubmit, onRestart})=>(
   <div className="winner-dialog">
     <div className="winner-dialog__header">
